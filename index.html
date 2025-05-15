@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summarizador de Artículos Científicos</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <nav class="navbar">
+        <button class="nav-button active">Summarizar</button>
+        <a href="api-docs.html" class="nav-button">Documentación API</a>
+    </nav>
+    
+    <div class="container">
+        <div class="card">
+            <h1>Summarizador de Artículos Científicos</h1>
+            <p>Sube un PDF para obtener un resumen automático del artículo científico.</p>
+            <div class="file-upload">
+                <input type="file" id="file" class="file-input" accept=".pdf">
+                <label for="file" class="file-label">Seleccionar archivo</label>
+                <span id="file-name">Sin archivos seleccionados</span>
+                <button class="summarize-button" id="summarizeBtn" disabled>
+                    <i class="fas fa-file-alt"></i> Summarizar
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Este resumen es generado automáticamente y no reemplaza la visión crítica de un humano.</p>
+        <p> &#169 2025 Giovanna Campos & Yavé Vargas </p>
+    </footer>
+</body>
+</html>

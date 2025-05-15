@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación API</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-button">Summarizar</a>
+        <button class="nav-button active">Documentación API</button>
+    </nav>
+    
+    <div class="container">
+        <div class="card">
+            <h1>Documentación de la API</h1>
+            <h2>Endpoint: /api/summarize</h2>
+            <p><strong>Método:</strong> POST</p>
+            <p><strong>Parámetros:</strong> Archivo PDF</p>
+            <p><strong>Respuesta:</strong> JSON con el resumen del artículo</p>
+            <h3>Ejemplo de uso:</h3>
+            <pre>
+fetch('/api/summarize', {
+    method: 'POST',
+    body: formData
+})
+.then(response => response.json())
+.then(data => console.log(data));
+            </pre>
+        </div>
+    </div>
+</body>
+</html>
