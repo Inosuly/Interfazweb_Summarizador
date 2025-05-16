@@ -32,3 +32,101 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Controladores para los sliders
+    const sliders = ['temperature', 'top_p', 'frequency_penalty', 'presence_penalty'];
+    sliders.forEach(id => {
+        const slider = document.getElementById(id);
+        const valueDisplay = document.getElementById(`${id}-value`);
+        
+        slider.addEventListener('input', function() {
+            valueDisplay.textContent = this.value;
+        });
+    });
+
+    // Botón de reset
+    document.getElementById('resetParams').addEventListener('click', function() {
+        document.getElementById('temperature').value = 0.3;
+        document.getElementById('top_p').value = 0.6;
+        document.getElementById('frequency_penalty').value = 0.8;
+        document.getElementById('presence_penalty').value = 0.5;
+        document.getElementById('max_tokens').value = 500;
+        
+        // Actualizar displays
+        document.getElementById('temp-value').textContent = '0.3';
+        document.getElementById('topp-value').textContent = '0.6';
+        document.getElementById('freqp-value').textContent = '0.8';
+        document.getElementById('presp-value').textContent = '0.5';
+    });
+
+    // Presets
+    const presets = {
+        technical: { temp: 0.1, top_p: 0.5, freq: 1.2, pres: 0.3, tokens: 400 },
+        creative: { temp: 0.7, top_p: 0.9, freq: 0.5, pres: 0.2, tokens: 300 },
+        concise: { temp: 0.2, top_p: 0.3, freq: 1.5, pres: 1.0, tokens: 200 },
+        detailed: { temp: 0.3, top_p: 0.8, freq: 0.8, pres: 0.1, tokens: 800 }
+    };
+
+    document.querySelectorAll('.preset-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const preset = presets[this.dataset.preset];
+            document.getElementById('temperature').value = preset.temp;
+            document.getElementById('top_p').value = preset.top_p;
+            document.getElementById('frequency_penalty').value = preset.freq;
+            document.getElementById('presence_penalty').value = preset.pres;
+            document.getElementById('max_tokens').value = preset.tokens;
+            
+            // Actualizar displays
+            document.getElementById('temp-value').textContent = preset.temp;
+            document.getElementById('topp-value').textContent = preset.top_p;
+            document.getElementById('freqp-value').textContent = preset.freq;
+            document.getElementById('presp-value').textContent = preset.pres;
+        });
+    });
+
+    // Envío al servidor
+    document.getElementById('summarizeBtn').addEventListener('click', function() {
+        const params = {
+            file: document.getElementById('file').files[0],
+            temperature: parseFloat(document.getElementById('temperature').value),
+            top_p: parseFloat(document.getElementById('top_p').value),
+            frequency_penalty: parseFloat(document.getElementById('frequency_penalty').value),
+            presence_penalty: parseFloat(document.getElementById('presence_penalty').value),
+            max_tokens: parseInt(document.getElementById('max_tokens').value)
+        };
+        
+        // Aquí iría la llamada a tu API
+        console.log("Parámetros enviados:", params);
+        // generateSummary(params);
+    });
+});
+
+document.getElementById('file').addEventListener('change', function(e) {
+    const fileName = e.target.files[0] ? e.target.files[0].name : 'Ningún archivo seleccionado';
+    document.getElementById('file-name').innerHTML = `<i class="fas fa-file"></i> ${fileName}`;
+    document.getElementById('drop-zone').classList.add('hidden');
+    document.getElementById('file-name').parentElement.classList.add('file-selected');
+    
+    // Habilitar botón de resumen
+    document.getElementById('summarizeBtn').disabled = false;
+    document.getElementById('summarizeBtnCustom').disabled = false;
+});
+
+// Manejar drag and drop (opcional)
+const dropZone = document.getElementById('drop-zone');
+dropZone.addEventListener('drop', function(e) {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file && file.type === 'application/pdf') {
+        document.getElementById('file').files = e.dataTransfer.files;
+        document.getElementById('file-name').innerHTML = `<i class="fas fa-file"></i> ${file.name}`;
+        this.classList.add('hidden');
+        document.getElementById('file-name').parentElement.classList.add('file-selected');
+        
+        // Habilitar botón de resumen
+        document.getElementById('summarizeBtn').disabled = false;
+        document.getElementById('summarizeBtnCustom').disabled = false;
+    }
+    this.classList.remove('highlight');
+});
