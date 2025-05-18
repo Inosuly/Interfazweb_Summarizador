@@ -60,14 +60,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('presp-value').textContent = '0.5';
     });
 
-    // Presets
-    const presets = {
-        technical: { temp: 0.1, top_p: 0.5, freq: 1.2, pres: 0.3, tokens: 400 },
-        creative: { temp: 0.7, top_p: 0.9, freq: 0.5, pres: 0.2, tokens: 300 },
-        concise: { temp: 0.2, top_p: 0.3, freq: 1.5, pres: 1.0, tokens: 200 },
-        detailed: { temp: 0.3, top_p: 0.8, freq: 0.8, pres: 0.1, tokens: 800 }
-    };
-
     document.querySelectorAll('.preset-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const preset = presets[this.dataset.preset];
@@ -130,3 +122,61 @@ dropZone.addEventListener('drop', function(e) {
     }
     this.classList.remove('highlight');
 });
+function generateSummary(params) {
+    const formData = new FormData();
+    formData.append('file', params.file);
+    formData.append('temperature', params.temperature);
+    formData.append('top_p', params.top_p);
+    formData.append('frequency_penalty', params.frequency_penalty);
+    formData.append('presence_penalty', params.presence_penalty);
+    formData.append('max_tokens', params.max_tokens);
+
+    fetch('https://tu-api.com/api/summarize', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Error en la API');
+        return response.json();
+    })
+    .then(data => {
+        console.log('Resumen recibido:', data);
+        mostrarResumen(data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Ocurrió un error al generar el resumen');
+    });
+}
+function mostrarResumen(data) {
+    const resumen = data.resumen || "No se recibió resumen";
+    document.getElementById('resultado').textContent = resumen;
+}
+
+
+// VISUALISAR RESUMEN 
+function mostrarResumen(texto) {
+        // Oculta los parámetros avanzados
+        document.querySelector('.advanced-params').style.display = 'none';
+
+        // Muestra el contenedor del resumen
+        document.getElementById('summary-container').style.display = 'block';
+
+        // Coloca el texto del resumen
+        document.getElementById('summary-text').value = texto;
+    }
+
+function copySummary() {
+        const resumen = document.getElementById("summary-text");
+        resumen.select();
+        resumen.setSelectionRange(0, 99999); // Para móviles
+
+        document.execCommand("copy");
+        alert("Resumen copiado al portapapeles");
+    }
+
+// Simula mostrar el resumen cuando el botón se presione (puedes eliminar esto en producción)
+document.getElementById('summarizeBtn').addEventListener('click', function () {
+        // Aquí deberías poner el resumen real recibido desde el backend
+    mostrarResumen("Este es un ejemplo de resumen generado automáticamente.");
+    });

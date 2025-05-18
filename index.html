@@ -92,7 +92,17 @@
             <div class="param-help">Controla la extensión del resumen (1 token ≈ 3/4 palabra)</div>
         </div>
     </div>
-
+    <div id="summary-container" style="display: none;" class="card">
+    <div class="card-header">
+        <h2>Resumen generado</h2>
+    </div>
+    <div class="summary-box">
+        <textarea id="summary-text" readonly></textarea>
+        <button class="copy-button" onclick="copySummary()">
+            <i class="fas fa-copy"></i> Copiar resumen
+        </button>
+        </div>
+    </div>
 </div>
 
 
