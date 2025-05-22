@@ -840,3 +840,51 @@ input[type="range"]::-webkit-slider-thumb {
 .change-file-button i {
     margin-right: 5px;
 }
+/* ============================================== */
+/* Agrega estos estilos al CSS */
+.param-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.param-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.param-button i {
+    font-size: 1rem;
+}
+
+.param-button.primary {
+    background-color: #3498db;
+    color: white;
+}
+
+.param-button.primary:hover {
+    background-color: #2980b9;
+}
+
+.param-button.success {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.param-button.success:hover {
+    background-color: #27ae60;
+}
+
+.param-button:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+    opacity: 0.7;
+}

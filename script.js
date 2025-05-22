@@ -354,3 +354,74 @@ toastStyles.textContent = `
 }
 `;
 document.head.appendChild(toastStyles);
+
+/* ==============Resumen con parametros ==================== */
+// Variables de estado
+let paramsApplied = false;
+let fileUploaded = false;
+
+// Modifica la función updateFileInfo para actualizar el estado
+function updateFileInfo(file) {
+    fileUploaded = true;
+    // ... resto del código existente ...
+    checkGenerateButtonState();
+}
+
+// Función para verificar el estado del botón Generar
+function checkGenerateButtonState() {
+    const generateBtn = document.getElementById('generate-summary-btn');
+    generateBtn.disabled = !(fileUploaded && paramsApplied);
+}
+
+// Modifica el evento de aplicar parámetros
+document.getElementById('apply-params-btn').addEventListener('click', function() {
+    // Aquí iría tu lógica para guardar los parámetros
+    paramsApplied = true;
+    showToast('Parámetros aplicados correctamente');
+    checkGenerateButtonState();
+});
+
+// Evento para el botón Generar resumen
+document.getElementById('generate-summary-btn').addEventListener('click', function() {
+    if (!fileUploaded) {
+        showToast('Por favor, sube un archivo PDF primero');
+        return;
+    }
+    
+    if (!paramsApplied) {
+        showToast('Por favor, aplica los parámetros primero');
+        return;
+    }
+    
+    // Aquí llamarías a tu función para generar el resumen
+    generateSummary();
+});
+
+// Función para resetear parámetros
+document.getElementById('reset-params-btn').addEventListener('click', function() {
+    paramsApplied = false;
+    checkGenerateButtonState();
+    // ... resto del código existente ...
+});
+
+// Función para generar el resumen (ejemplo)
+async function generateSummary() {
+    const generateBtn = document.getElementById('generate-summary-btn');
+    
+    try {
+        generateBtn.disabled = true;
+        generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generando...';
+        
+        // Simular generación de resumen (reemplazar con tu lógica real)
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        showToast('Resumen generado con éxito');
+        // Aquí mostrarías el resumen en la interfaz
+        
+    } catch (error) {
+        showToast('Error al generar el resumen');
+    } finally {
+        generateBtn.innerHTML = '<i class="fas fa-play-circle"></i> Generar resumen';
+        generateBtn.disabled = false;
+    }
+}
