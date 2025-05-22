@@ -20,26 +20,31 @@
     <div class="container">
     <div class="card">
         <div class="card-header">
-            <h1> Summarizador de Artículos Científicos</h1>
+            <h1>Summarizador de Artículos Científicos</h1>
             <p class="subtitle">Sube un PDF para obtener un resumen automático</p>
         </div>
 
         <div class="file-upload-container">
             <div class="file-upload-box" id="drop-zone">
                 <i class="fas fa-cloud-upload-alt upload-icon"></i>
-                
+                <p>Arrastra y suelta tu archivo aquí o haz clic para seleccionar</p>
             </div>
-
-    <div class="file-selection">
-        <div class="file-upload">
-            <input type="file" id="file" class="file-input" accept=".pdf">
-            <label for="file" class="file-label">
-                <i class="fas fa-folder-open"></i> Seleccionar PDF
-            </label>
+    
+        <div class="file-selection">
+            <div class="file-upload">
+                <input type="file" id="file" class="file-input" accept=".pdf">
+                <label for="file" class="file-label">
+                    <i class="fas fa-folder-open"></i> Seleccionar PDF
+                </label>
+            </div>
+        <div id="file-display" class="file-display" style="display: none;">
+            <span id="file-name"><i class="fas fa-file-pdf"></i> <span class="file-name-text"></span></span>
+            <button class="change-file-button" id="change-file-btn">
+                    <i class="fas fa-sync-alt"></i> Cambiar
+                </button>
+                </div>
+            </div>
         </div>
-        <span id="file-name"><i class="fas fa-file"></i> Ningún archivo seleccionado</span>
-    </div>
-</div>
 
         <button class="summarize-button" id="summarizeBtn" disabled>
             <i class="fas fa-magic"></i> Sumarizar
@@ -48,67 +53,117 @@
 
     <div class="advanced-params">
         <h1>Personalizar Resumen</h1>
+        
         <div class="param-group">
-            <label for="temperature">
-                <span>Creatividad (Temperature)</span>
-                <span class="param-value" id="temp-value">0.3</span>
-            </label>
+            <div class="param-header">
+                <label for="temperature">
+                    <span>Creatividad (Temperature)</span>
+                    <span class="param-value" id="temp-value">0.3</span>
+                </label>
+                <button class="info-button" data-param="temperature">
+                    <i class="fas fa-info-circle"></i>
+                </button>
+            </div>
             <input type="range" id="temperature" name="temperature" min="0" max="1" step="0.1" value="0.3">
             <div class="param-help">Controla la aleatoriedad (bajo = más preciso, alto = más creativo)</div>
+            <div class="param-info" id="info-temperature" style="display: none;">
+                <p>Este parámetro controla cuán creativo o conservador será el resumen. Valores bajos (0.1-0.3) producen resultados más determinísticos, mientras que valores altos (0.7-1.0) generan respuestas más diversas.</p>
+            </div>
         </div>
 
         <div class="param-group">
-            <label for="top_p">
-                <span>Enfoque (Top-P)</span>
-                <span class="param-value" id="topp-value">0.6</span>
-            </label>
+            <div class="param-header">
+                <label for="top_p">
+                    <span>Enfoque (Top-P)</span>
+                    <span class="param-value" id="topp-value">0.6</span>
+                </label>
+                <button class="info-button" data-param="top_p">
+                    <i class="fas fa-info-circle"></i>
+                </button>
+            </div>
             <input type="range" id="top_p" name="top_p" min="0.1" max="1" step="0.1" value="0.6">
             <div class="param-help">Controla la diversidad de opciones consideradas</div>
+            <div class="param-info" id="info-top_p" style="display: none;">
+                <p>Top-P sampling selecciona las palabras más probables cuya probabilidad acumulada no excede el valor establecido. Valores más bajos hacen que el modelo sea más enfocado, mientras que valores altos permiten más diversidad.</p>
+            </div>
         </div>
 
         <div class="param-group">
-            <label for="frequency_penalty">
-                <span>Penalización por repetición</span>
-                <span class="param-value" id="freqp-value">0.8</span>
-            </label>
+            <div class="param-header">
+                <label for="frequency_penalty">
+                    <span>Penalización por repetición</span>
+                    <span class="param-value" id="freqp-value">0.8</span>
+                </label>
+                <button class="info-button" data-param="frequency_penalty">
+                    <i class="fas fa-info-circle"></i>
+                </button>
+            </div>
             <input type="range" id="frequency_penalty" name="frequency_penalty" min="0" max="2" step="0.1" value="0.8">
             <div class="param-help">Reduce la repetición de frases (alto = menos repeticiones)</div>
+            <div class="param-info" id="info-frequency_penalty" style="display: none;">
+                <p>Este parámetro reduce la probabilidad de que el modelo repita las mismas palabras o frases. Valores más altos (1.0-2.0) penalizan más las repeticiones, mientras que 0 no aplica ninguna penalización.</p>
+            </div>
         </div>
 
         <div class="param-group">
-            <label for="presence_penalty">
-                <span>Penalización por temas nuevos</span>
-                <span class="param-value" id="presp-value">0.5</span>
-            </label>
+            <div class="param-header">
+                <label for="presence_penalty">
+                    <span>Penalización por temas nuevos</span>
+                    <span class="param-value" id="presp-value">0.5</span>
+                </label>
+                <button class="info-button" data-param="presence_penalty">
+                    <i class="fas fa-info-circle"></i>
+                </button>
+            </div>
             <input type="range" id="presence_penalty" name="presence_penalty" min="0" max="2" step="0.1" value="0.5">
             <div class="param-help">Fomenta (bajo) o evita (alto) mencionar nuevos conceptos</div>
+            <div class="param-info" id="info-presence_penalty" style="display: none;">
+                <p>Similar a la penalización por frecuencia, pero en lugar de penalizar tokens repetidos, penaliza tokens nuevos basados en si ya aparecieron en el texto. Valores altos hacen que el modelo se mantenga en los temas ya mencionados.</p>
+            </div>
         </div>
 
         <div class="param-group">
-            <label for="max_tokens">
-                <span>Longitud máxima (tokens)</span>
-                <input type="number" id="max_tokens" name="max_tokens" min="100" max="2000" step="50" value="500" class="number-input">
-            </label>
+            <div class="param-header">
+                <label for="max_tokens">
+                    <span>Longitud máxima (tokens)</span>
+                    <input type="number" id="max_tokens" name="max_tokens" min="100" max="2000" step="50" value="500" class="number-input">
+                </label>
+                <button class="info-button" data-param="max_tokens">
+                    <i class="fas fa-info-circle"></i>
+                </button>
+            </div>
             <div class="param-help">Controla la extensión del resumen (1 token ≈ 3/4 palabra)</div>
+            <div class="param-info" id="info-max_tokens" style="display: none;">
+                <p>Este parámetro limita la longitud del resumen generado. Un token equivale aproximadamente a 3/4 de una palabra. Para resúmenes breves use 100-300 tokens, para resúmenes detallados use 500-1000 tokens.</p>
+            </div>
+        </div>
+        
+        <div class="param-buttons">
+            <button class="param-button" id="reset-params-btn">
+                <i class="fas fa-undo"></i> Restablecer valores
+            </button>
+            <button class="param-button primary" id="apply-params-btn">
+                <i class="fas fa-check-circle"></i> Aplicar parámetros
+            </button>
         </div>
     </div>
+    
     <div id="summary-container" style="display: none;" class="card">
-    <div class="card-header">
-        <h2>Resumen generado</h2>
-    </div>
-    <div class="summary-box">
-        <textarea id="summary-text" readonly></textarea>
-        <button class="copy-button" onclick="copySummary()">
-            <i class="fas fa-copy"></i> Copiar resumen
-        </button>
+        <div class="card-header">
+            <h2>Resumen generado</h2>
+        </div>
+        <div class="summary-box">
+            <textarea id="summary-text" readonly></textarea>
+            <button class="copy-button" onclick="copySummary()">
+                <i class="fas fa-copy"></i> Copiar resumen
+            </button>
         </div>
     </div>
 </div>
 
-
     <footer>
         <p>Este resumen es generado automáticamente y no reemplaza la visión crítica de un humano.</p>
-        <p> &#169 2025 Giovanna Campos & Yavé Vargas </p>
+        <p> &#169; 2025 Giovanna Campos & Yavé Vargas</p>
     </footer>
 </body>
 </html>

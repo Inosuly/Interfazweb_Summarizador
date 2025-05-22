@@ -563,3 +563,280 @@ footer {
         font-size: 1rem;
         cursor: pointer;
     }
+
+
+/* ============================================== */
+/*                  Botones parametros               */
+/* ============================================== */
+.param-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.param-button {
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.param-button i {
+    font-size: 16px;
+}
+
+/* Botón normal */
+.param-button {
+    background-color: #f5f7fa;
+    color: #4a5568;
+    border-color: #e2e8f0;
+}
+
+.param-button:hover {
+    background-color: #ebf4ff;
+    color: #4299e1;
+    border-color: #bee3f8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Botón primario */
+.param-button.primary {
+    background-color: #4299e1;
+    color: white;
+    border-color: #2b6cb0;
+}
+
+.param-button.primary:hover {
+    background-color: #3182ce;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+}
+
+/* Efecto al hacer clic */
+.param-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Estado deshabilitado */
+.param-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .param-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .param-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ============================================== */
+/*          modificaciones parametros             */
+/* ============================================== */
+.advanced-params {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 25px;
+    margin-top: 30px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.param-group {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.param-group label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.param-value {
+    font-weight: 700;
+    color: #4299e1;
+}
+
+.param-help {
+    font-size: 0.85em;
+    color: #718096;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+input[type="range"] {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: #e2e8f0;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #4299e1;
+    cursor: pointer;
+}
+
+.number-input {
+    width: 80px;
+    padding: 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.param-feedback {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #48bb78;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; bottom: 0; }
+    to { opacity: 1; bottom: 20px; }
+}
+/* ============================================== */
+/*                  MODAL                        */ 
+/* ============================================== */
+/* Estilos para los parámetros avanzados con botones de información */
+.param-group {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.param-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.param-header label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: #2c3e50;
+    flex-grow: 1;
+}
+
+.info-button {
+    background: none;
+    border: none;
+    color: #3498db;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0.3rem;
+    transition: all 0.2s ease;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-button:hover {
+    background-color: #e8f4fc;
+    color: #2980b9;
+}
+
+.param-info {
+    background-color: #f1f8fe;
+    border-left: 3px solid #3498db;
+    padding: 0.8rem;
+    margin-top: 0.8rem;
+    border-radius: 0 5px 5px 0;
+    font-size: 0.9rem;
+    color: #34495e;
+    line-height: 1.5;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.file-upload-container {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.file-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+}
+
+.file-display i.fa-file-pdf {
+    color: #e74c3c;
+    font-size: 1.2rem;
+}
+
+.file-name-text {
+    margin-left: 5px;
+    font-weight: 500;
+}
+
+.change-file-button {
+    background: none;
+    border: none;
+    color: #3498db;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-left: auto;
+    transition: background-color 0.2s;
+}
+
+.change-file-button:hover {
+    background-color: #e8f4fc;
+}
+
+.change-file-button i {
+    margin-right: 5px;
+}

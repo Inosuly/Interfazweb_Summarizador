@@ -3,39 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentación API</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Documentación API - Summarizador Científico</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Estilos específicos para la documentación API */
+        .api-section {
+            margin-bottom: 2.5rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .endpoint {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-left: 4px solid #4299e1;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .method {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            font-weight: bold;
+            font-family: monospace;
+            margin-right: 0.5rem;
+        }
+        
+        .method.post {
+            background: #ebf8ff;
+            color: #2b6cb0;
+            border: 1px solid #bee3f8;
+        }
+        
+        pre {
+            background: #2d3748;
+            color: #f7fafc;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            tab-size: 4;
+        }
+        
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+        }
+        
+        .param-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        .param-table th, .param-table td {
+            border: 1px solid #e2e8f0;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        
+        .param-table th {
+            background: #f7fafc;
+            font-weight: 600;
+        }
+        
+        .param-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        
+        .response-example {
+            background: #f0fff4;
+            border-left: 4px solid #48bb78;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .try-api-btn {
+            display: inline-block;
+            background: #4299e1;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.2s;
+        }
+        
+        .try-api-btn:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .try-api-btn i {
+            margin-right: 0.5rem;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
-        <img src="image/IPN.png" alt="Logo izquierdo" class="logo-left">
+        <img src="/static/image/IPN.png" alt="Logo IPN" class="logo-left">
         <div class="nav-buttons">
             <a href="index.html" class="nav-button">Summarizar</a>
             <button class="nav-button active">Documentación API</button>
         </div>
-        <img src="image/upiiz.png" alt="Logo derecho" class="logo-right">
+        <img src="/static/image/upiiz.png" alt="Logo UPIICSA" class="logo-right">
     </nav>
     
     <div class="container">
         <div class="card">
-            <h1>Documentación de la API</h1>
-            <h2>Endpoint: /api/summarize</h2>
-            <p><strong>Método:</strong> POST</p>
-            <p><strong>Parámetros:</strong> Archivo PDF</p>
-            <p><strong>Respuesta:</strong> JSON con el resumen del artículo</p>
-            <h3>Ejemplo de uso:</h3>
-            <pre>
+            <h1><i class="fas fa-book"></i> Documentación de la API</h1>
+            <p class="subtitle">Interfaz para integrar el servicio de resumen de artículos científicos</p>
+            
+            <div class="api-section">
+                <h2><i class="fas fa-server"></i> Endpoint Principal</h2>
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <code>/api/summarize</code>
+                    <p>Procesa un artículo científico en PDF y devuelve un resumen estructurado.</p>
+                </div>
+                
+                <h3><i class="fas fa-cogs"></i> Parámetros de la solicitud</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th>Parámetro</th>
+                            <th>Tipo</th>
+                            <th>Obligatorio</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>file</td>
+                            <td>File (PDF)</td>
+                            <td>Sí</td>
+                            <td>Archivo PDF del artículo científico</td>
+                        </tr>
+                        <tr>
+                            <td>temperature</td>
+                            <td>Float</td>
+                            <td>No</td>
+                            <td>Controla la creatividad (0.0 a 1.0, default: 0.3)</td>
+                        </tr>
+                        <tr>
+                            <td>top_p</td>
+                            <td>Float</td>
+                            <td>No</td>
+                            <td>Controla el enfoque (0.1 a 1.0, default: 0.6)</td>
+                        </tr>
+                        <tr>
+                            <td>max_tokens</td>
+                            <td>Integer</td>
+                            <td>No</td>
+                            <td>Longitud máxima del resumen (100 a 2000, default: 500)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3><i class="fas fa-code"></i> Ejemplo de solicitud</h3>
+                <pre><code>const formData = new FormData();
+formData.append('file', pdfFile);
+formData.append('temperature', 0.5);
+formData.append('max_tokens', 750);
+
 fetch('/api/summarize', {
     method: 'POST',
     body: formData
 })
 .then(response => response.json())
-.then(data => console.log(data));
-            </pre>
+.then(data => {
+    console.log('Resumen:', data.summary);
+    console.log('Palabras clave:', data.keywords);
+})
+.catch(error => console.error('Error:', error));</code></pre>
+                
+                <h3><i class="fas fa-reply"></i> Respuesta</h3>
+                <div class="response-example">
+                    <p>La API devuelve un objeto JSON con la siguiente estructura:</p>
+                    <pre><code>{
+    "success": true,
+    "summary": "Resumen generado del artículo...",
+    "keywords": ["palabra1", "palabra2", "palabra3"],
+    "metadata": {
+        "article_title": "Título del artículo",
+        "authors": ["Autor 1", "Autor 2"],
+        "year": 2023,
+        "processing_time": 2.45
+    }
+}</code></pre>
+                </div>
+                
+                <h3><i class="fas fa-exclamation-triangle"></i> Códigos de error</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>400</td>
+                            <td>Solicitud mal formada (archivo faltante o inválido)</td>
+                        </tr>
+                        <tr>
+                            <td>413</td>
+                            <td>Archivo demasiado grande (límite: 5MB)</td>
+                        </tr>
+                        <tr>
+                            <td>415</td>
+                            <td>Tipo de archivo no soportado (solo PDF)</td>
+                        </tr>
+                        <tr>
+                            <td>500</td>
+                            <td>Error interno del servidor</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="api-section">
+                <h2><i class="fas fa-flask"></i> Prueba la API</h2>
+                <p>Puedes probar el endpoint directamente desde nuestro cliente interactivo:</p>
+                <a href="http://127.0.0.1:8000/docs" class="try-api-btn">
+                    <i class="fas fa-external-link-alt"></i> Probar en Swagger UI
+                </a>
+                <p>O consulta la documentación interactiva con todos los endpoints disponibles:</p>
+                <a href="http://127.0.0.1:8000/redoc" class="try-api-btn" style="background: #553c9a;">
+                    <i class="fas fa-book-open"></i> Ver documentación completa
+                </a>
+            </div>
         </div>
     </div>
+    
     <footer>
-        <p> &#169 2025 Giovanna Campos & Yavé Vargas </p>
+        <p>Este servicio es proporcionado por alumno de UPIIZ-IPN.</p>
+        <p> &#169 2025 Giovanna Campos & Yavé Vargas</p>
     </footer>
 </body>
 </html>
