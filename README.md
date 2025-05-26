@@ -1,35 +1,63 @@
-# Summarizador
-Este proyecto tiene como objetivo desarrollar un sistema que permita generar resúmenes automáticos de artículos científicos escritos en español, utilizando modelos de lenguaje de contexto largo. Está diseñado para facilitar el acceso rápido y eficiente a la información relevante en literatura científica para investigadores, estudiantes, docentes y profesionales.
+# Interfaz Web del Summarizador de Artículos Científicos
 
-## Descripción del Proyecto
-El sistema ofrece una API que permite:
+**Nombre del Proyecto:** Sumarización de Artículos Científicos mediante Modelos Largos de Lenguaje  
+**Nombre del Documento:** RAEME – Interfaz Web  
+**Responsable:** Giovanna Inosuli Campos Flores  
 
-- Subir artículos científicos en formato PDF.
+---
 
-- Extraer y preprocesar el texto.
+## 1. Requerimientos
 
-- Generar un resumen comprensible y coherente en español mediante un modelo de lenguaje preentrenado de contexto largo.
+### 1.1 Requerimientos Funcionales
 
-- Devolver el resumen en texto plano.
+- Permitir al usuario cargar un archivo PDF mediante arrastre o selección.
+- Visualizar el nombre del archivo cargado.
+- Botón para generar un resumen automático estándar.
+- Botón alternativo para generar un resumen con parámetros personalizados.
+- Controles para modificar los siguientes parámetros del modelo:
+  - Creatividad (temperature)
+  - Enfoque (top-p)
+  - Penalización por repetición (frequency_penalty)
+  - Penalización por temas nuevos (presence_penalty)
+  - Longitud máxima del resumen (max_tokens)
 
-### Características principales:
-- Procesamiento exclusivo de archivos en español.
+### 1.2 Requerimientos No Funcionales
 
-- Resúmenes automáticos generados por modelos de lenguaje.
+- Interfaz intuitiva y visualmente atractiva.
+- Diseño responsivo adaptado a distintos tamaños de pantalla.
+- Retroalimentación visual clara al usuario (ej. botones deshabilitados).
+- Uso de iconografía para mejorar la comprensión visual.
 
-- Interfaz API basada en REST para facilidad de integración.
+---
 
-### Tecnologías y Herramientas
-- Lenguaje: Python 3.10+
+## 2. Análisis
 
-- Framework: FastAPI
+La interfaz web debe ofrecer una experiencia sencilla para usuarios de cualquier nivel técnico. Para ello:
 
-- Procesamiento de documentos: PyMuPDF, PDFMiner, spaCy
+- El proceso de carga del archivo debe ser claro y con retroalimentación visual inmediata.
+- Los botones de resumen deben habilitarse solo si hay un archivo cargado.
+- Los parámetros avanzados deben estar organizados y ser opcionales.
+- Se prioriza la experiencia de usuario enfocada en accesibilidad y claridad.
 
-- Modelo de lenguaje: LLMs preentrenados (Ej. LongT5, LED, Mistral, etc.)
+---
 
-- Entorno: Jupyter, VSCode
+## 3. Especificación
 
-- Control de versiones: Git
+### 3.1 Estructura HTML
 
-- Testing: Pytest
+```html
+<div class="container">
+  <div class="card">
+    <!-- Encabezado -->
+    <!-- Carga de PDF (drag & drop y selección) -->
+    <!-- Botón de resumen automático -->
+  </div>
+
+  <div class="advanced-params">
+    <!-- Sliders y parámetros avanzados -->
+  </div>
+
+  <div class="action-buttons">
+    <!-- Botón de resumen con configuración personalizada -->
+  </div>
+</div>
